@@ -3,6 +3,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import { userRouter } from "./router";
 
 const app = express();
 
@@ -19,5 +20,7 @@ app.use(morgan("dev")); //logging
 app.get("/", handleHome);
 
 app.get("/profile", handleProfile);
+
+app.use("/user", userRouter);
 
 export default app; //이 파일을 import할 때 app object를 주겠다는 뜻. app object는 이미 설정한 코드들(#13-#21).
