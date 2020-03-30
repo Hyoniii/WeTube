@@ -11,8 +11,8 @@ import {
 const userRouter = express.Router();
 
 userRouter.get(routes.users, users);
-userRouter.get(routes.userDetail, userDetail);
-userRouter.get(routes.editProfile, editProfile);
+userRouter.get(routes.editProfile, editProfile); //위치가 중요. userDetail보다 위에 위채해야 :id가 제대로 인식.
 userRouter.get(routes.changePassword, changePassword);
+userRouter.get(routes.userDetail, userDetail);
 
 export default userRouter;

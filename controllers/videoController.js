@@ -1,5 +1,9 @@
 // golbal routes
-export const home = (req, res) => res.render("home", { pageTitle: "Home" });
+import { videos } from "../db";
+
+export const home = (req, res) => {
+  res.render("home", { pageTitle: "Home", videos });
+};
 
 export const search = (req, res) => {
   //ECMA -> const searchingBy = req.search.term
@@ -9,8 +13,7 @@ export const search = (req, res) => {
   res.render("search", { pageTitle: "Search", searchingBy }); //seachingBy : searchingBy 와 같은 문법.ES6에서는 자동
 };
 //video routes
-export const videos = (req, res) =>
-  res.render("videos", { pageTitle: "Videos" });
+
 export const upload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 export const videoDetail = (req, res) =>
