@@ -21,8 +21,12 @@ const VideoSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now //mongoose가 자동으로 () 실행
+  },
+  comments: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
   }
 });
 
-const model = mongoose.model(); //("Video",VideoSchema);
+const model = mongoose.model("Video", VideoSchema);
 export default model;
