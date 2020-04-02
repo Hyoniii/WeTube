@@ -1,50 +1,14 @@
-export const videos = [
-  {
-    id: 1234,
-    title: "Video Awesome",
-    description: "Thos is something I love",
-    views: 24,
-    videoFile: "https://www.youtube.com/embed/u1kHo3nnWP4",
-    creator: {
-      id: 135,
-      name: "hyoniii",
-      email: "h.com"
-    }
-  },
-  {
-    id: 1234,
-    title: "Video Awesome",
-    description: "Thos is something I love",
-    views: 24,
-    videoFile: "https://www.youtube.com/embed/u1kHo3nnWP4",
-    creator: {
-      id: 135,
-      name: "hyoniii",
-      email: "h.com"
-    }
-  },
-  {
-    id: 1234,
-    title: "Video Awesome",
-    description: "Thos is something I love",
-    views: 24,
-    videoFile: "https://www.youtube.com/embed/u1kHo3nnWP4",
-    creator: {
-      id: 135,
-      name: "hyoniii",
-      email: "h.com"
-    }
-  },
-  {
-    id: 1234,
-    title: "Video Awesome",
-    description: "Thos is something I love",
-    views: 24,
-    videoFile: "https://www.youtube.com/embed/u1kHo3nnWP4",
-    creator: {
-      id: 135,
-      name: "hyoniii",
-      email: "h.com"
-    }
-  }
-];
+import mongoose from "mongoose";
+
+mongoose.connect("mongodb://localhost:27017/WeTube", {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
+
+const db = mongoose.connection;
+
+const handleOpen = () => console.log("⭕️Connected to DB");
+const handleError = error => console.log(`❌Error on DB Connection ${error}`);
+
+db.once("open", handleOpen);
+db.on("error", handleError);
