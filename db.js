@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"; //내장 모듈을 import함으로 따로 파일에서 임포트 안해도 된다.
+dotenv.config(); //.env안의 정보를 가져올 수 있는 함수
 
-mongoose.connect("mongodb://localhost:27017/WeTube", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
