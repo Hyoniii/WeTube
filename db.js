@@ -4,7 +4,8 @@ dotenv.config(); //.env안의 정보를 가져올 수 있는 함수
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 
 const db = mongoose.connection;

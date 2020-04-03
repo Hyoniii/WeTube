@@ -9,12 +9,13 @@ import {
   postUpload,
   getUpload
 } from "../controllers/videoController";
+import { uploadVideo } from "../middlewares";
 
 const videoRouter = express.Router();
 
 //videoRouter.get(routes.videos, videos);
 videoRouter.get(routes.upload, getUpload);
-videoRouter.post(routes.upload, postUpload);
+videoRouter.post(routes.upload, uploadVideo, postUpload); //첫번째 함수로 넘어가면 multer로 file url반환 후 그 값으로 두번째 함수 접근
 
 videoRouter.get(routes.videoDetail(), videoDetail);
 videoRouter.get(routes.editVideo, editVideo);

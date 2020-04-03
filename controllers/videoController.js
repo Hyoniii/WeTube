@@ -1,9 +1,17 @@
 // golbal routes
 
 import routes from "../routes";
+import Video from "../models/Video";
+import { compile } from "pug";
 
-export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", videos });
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    res.render("home", { pageTitle: "Home", videos });
+  } catch {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", videos: [] }); //error가 나도 기본 작동을 하게끔 default값 설정
+  }
 };
 
 export const search = (req, res) => {
@@ -18,11 +26,18 @@ export const search = (req, res) => {
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { file, title, description }
+    body: { title, description },
+    file: { path }
   } = req;
-  res.redirect(routes.videoDetail(1234));
+  const newVideo = await Video.create({
+    fileUrl: path,
+    title,
+    description
+  });
+  //파일이 업로드 되면 url방식으로 해당 파일에 접근한다.왜냐면 multer로 바꿨으니까
+  res.redirect(routes.videoDetail(newVideo.id));
 }; // To Do : Upload and Save video
 
 export const videoDetail = (req, res) =>
