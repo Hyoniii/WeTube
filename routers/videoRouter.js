@@ -22,8 +22,8 @@ videoRouter.post(routes.upload, uploadVideo, postUpload); //첫번째 함수로 
 videoRouter.get(routes.videoDetail(), videoDetail);
 //Edit
 videoRouter.get(routes.editVideo(), getEditVideo); //함수 작동.() 아주 중요
-videoRouter.get(routes.editVideo(), postEditVideo); //함수 작동.() 아주 중요
+videoRouter.post(routes.editVideo(), postEditVideo); //함수 작동.() 아주 중요
 //Delete
-videoRouter.get(routes.deleteVideo, deleteVideo);
+videoRouter.get(routes.deleteVideo(), deleteVideo);
 
 export default videoRouter;
