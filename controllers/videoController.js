@@ -40,9 +40,32 @@ export const postUpload = async (req, res) => {
   res.redirect(routes.videoDetail(newVideo.id));
 }; // To Do : Upload and Save video
 
-export const videoDetail = (req, res) =>
-  res.render("videoDetail", { pageTitle: "Video Detail" });
-export const editVideo = (req, res) =>
+export const videoDetail = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("videoDetail", { pageTitle: "Video Detail", video }); //여기서 정해진 data(ex.video)를 template(editVideo.pug)으로 전달.
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
+export const getEditVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
+export const postEditVideo = (req, res) =>
   res.render("editVideo", { pageTitle: "Edit Video" });
+
 export const deleteVideo = (req, res) =>
   res.render("deleteVideo", { pageTitle: "Delete Video" });

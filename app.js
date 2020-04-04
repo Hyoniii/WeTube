@@ -13,6 +13,7 @@ const app = express();
 
 app.use(helmet()); //보안을 위한 middleware
 app.set("view engine", "pug"); //view engine을 undefined(default값)에서 pug로 지정해주는 코드.
+app.use("/uploads", express.static("uploads")); //uploads 디렉토리에 들어있는 파일을 로드할 수 있다.
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
