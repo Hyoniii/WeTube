@@ -14,11 +14,19 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   //ECMA -> const searchingBy = req.search.term
   const {
-    query: { term: searchingBy }
+    query: { term: searchingBy },
   } = req;
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
   res.render("search", { pageTitle: "Search", searchingBy, videos }); //seachingBy : searchingBy 와 같은 문법.ES6에서는 자동
 };
 //video routes
@@ -29,12 +37,12 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { path },
   } = req;
   const newVideo = await Video.create({
     fileUrl: path,
     title,
-    description
+    description,
   });
   //파일이 업로드 되면 url방식으로 해당 파일에 접근한다.왜냐면 multer로 바꿨으니까
   res.redirect(routes.videoDetail(newVideo.id));
@@ -42,7 +50,7 @@ export const postUpload = async (req, res) => {
 
 export const videoDetail = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -54,7 +62,7 @@ export const videoDetail = async (req, res) => {
 
 export const getEditVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -67,7 +75,7 @@ export const getEditVideo = async (req, res) => {
 export const postEditVideo = async (req, res) => {
   const {
     params: { id },
-    body: { title, description }
+    body: { title, description },
   } = req;
   try {
     await Video.findOneAndUpdate({ _id: id }, { title, description });
@@ -78,7 +86,7 @@ export const postEditVideo = async (req, res) => {
 };
 export const deleteVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     await findOneAndRemove({ _id: id });
