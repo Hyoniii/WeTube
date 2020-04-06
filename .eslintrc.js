@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ["airbnb-base", "prettier"],
+  extends: ["airbnb-base", "plugin:prettier/recommended", "prettier"],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -14,17 +14,6 @@ module.exports = {
   },
   rules: {
     "no-console": "off",
-    "spaced-comment": "off",
-    "import/no-unresolved": "[2, {commonjs: true, amd: true}]",
-    "import/named": "2",
-    "import/namespace": "2",
-    "import/default": "2",
-    "import/export": "2",
-    "import/no-cycle": "error",
   },
-  settings: {
-    "eslint.lintTask.enable": true,
-    "eslint.enable": true,
-    "eslint.debug": true,
-  },
+  settings: {},
 };
