@@ -8,10 +8,10 @@ export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ _id: -1 }); //-1은 위아래 정렬을 바꿔준다는 약속
     res.render("home", { pageTitle: "Home", videos });
-  } catch {
+  } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", videos: [] }); //error가 나도 기본 작동을 하게끔 default값 설정
-  }
+    res.render("home", { pageTitle: "Home", videos: [] });
+  } //error가 나도 기본 작동을 하게끔 default값 설정
 };
 
 export const search = async (req, res) => {

@@ -32,7 +32,9 @@ const config = {
               loader: "postcss-loader", //2번.css를 받아서 얘한테 주어주는 plugin 사용해서 css를 변환.(css호환성)
               options: {
                 plugins() {
-                  return [autoprefixer({ browsers: "cover 99.5%" })];
+                  return [
+                    autoprefixer({ overrideBrowserslist: "cover 99.5%" }),
+                  ];
                 },
               },
             },
