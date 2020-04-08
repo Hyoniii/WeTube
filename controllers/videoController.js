@@ -1,8 +1,6 @@
 // golbal routes
-
 import routes from "../routes";
 import Video from "../models/Video";
-import { compile } from "pug";
 
 export const home = async (req, res) => {
   try {
@@ -29,9 +27,10 @@ export const search = async (req, res) => {
   }
   res.render("search", { pageTitle: "Search", searchingBy, videos }); //seachingBy : searchingBy 와 같은 문법.ES6에서는 자동
 };
+
 //video routes
 
-export const getUpload = (req, res) =>
+export const getUpload = (_req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
 export const postUpload = async (req, res) => {
@@ -89,7 +88,9 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
-    await findOneAndRemove({ _id: id });
-  } catch (error) {}
+    await Video.findOneAndRemove({ _id: id });
+  } catch (error) {
+    console.log(error);
+  }
   res.redirect(routes.home);
 };

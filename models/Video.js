@@ -7,25 +7,27 @@ import mongoose from "mongoose";
 const VideoSchema = new mongoose.Schema({
   fileUrl: {
     type: String,
-    required: "File URL is required"
+    required: "File URL is required",
   },
   title: {
     type: String,
-    required: "File URL is required"
+    required: "File URL is required",
   },
   description: String,
   views: {
     type: Number,
-    default: 0
+    default: 0,
   },
   createdAt: {
     type: Date,
-    default: Date.now //mongoose가 자동으로 () 실행
+    default: Date.now, //mongoose가 자동으로 () 실행
   },
-  comments: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment"
-  }
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 const model = mongoose.model("Video", VideoSchema);
