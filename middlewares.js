@@ -7,10 +7,7 @@ const multerVideo = multer({ dest: "uploads/videos/" }); //videos폴더에 업�
 export const localsMiddlewares = (req, res, next) => {
   res.locals.siteName = "WeTube";
   res.locals.routes = routes;
-  res.locals.user = {
-    isAuthenticated: true,
-    id: 1,
-  };
+  res.locals.user = req.user || {}; //passport는 유저가 담긴 오브젝트를 줄수있다.
   next();
 };
 

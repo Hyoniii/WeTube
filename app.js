@@ -3,11 +3,14 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
+import { localsMiddlewares } from "./middlewares";
+import routes from "./routes";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
-import routes from "./routes";
-import { localsMiddlewares } from "./middlewares";
+
+import "./passport";
 
 const app = express();
 
@@ -21,6 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev")); //logging
 app.use(localsMiddlewares);
+app.use(passport.initialize()); //cookieparser 후 routes 전에 위치,passport.initialize() returns the middleware that is going to check for the cookies and find the user and all that.
+app.use(passport.session());
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
