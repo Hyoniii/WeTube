@@ -71,6 +71,38 @@ export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
+export const kakaoLogin = passport.authenticate("kakao");
+
+export const kakaoLoginCallback = async (_, __, profile, done) => {
+  const {
+    _json: { id, properties, kakao_account },
+  } = profile;
+  try {
+    const user = await User.findOne({ email: kakao_account.email });
+    if (user) {
+      user.kakaoId = id;
+      user.save();
+      return done(null, user);
+    }
+    const newUser = await User.create({
+      email: kakao_account.email,
+      name: properties.nickname,
+      kakaoId: id,
+      avatarUrl: properties.profile_image,
+    });
+    return done(null, newUser);
+  } catch (error) {
+    return done(error);
+  }
+};
+
+// 사용자의 정보는 profile에 들어있다.
+//User.findOrCreate(..., function(err, user) { if (err) { return done(err); }done(null, user);});
+
+export const postKakaoLogIn = (req, res) => {
+  res.redirect(routes.home);
+};
+
 export const logout = (req, res) => {
   //To Do : Process Log out
   req.logout();
