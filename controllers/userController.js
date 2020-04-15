@@ -124,7 +124,8 @@ export const userDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id);
+    //여기서의 유저는 유저디테일퍼그의 유저
+    const user = await User.findById(id).populate("videos"); //user에 id.videos의 세부(모든)정보를 보이게 넣겠다.
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);

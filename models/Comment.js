@@ -9,6 +9,10 @@ const CommentSchima = new mongoose.Schema({
     type: Date,
     default: Date.now, //mongoose가 자동으로 () 실행
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const model = mongoose.model("Comment", CommentSchima);

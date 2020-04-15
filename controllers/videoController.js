@@ -42,7 +42,11 @@ export const postUpload = async (req, res) => {
     fileUrl: path,
     title,
     description,
+    creator: req.user.id,
   });
+  //주의 할 것!! 유저의 id와 video의 id는 다르다.
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   //파일이 업로드 되면 url방식으로 해당 파일에 접근한다.왜냐면 multer로 바꿨으니까
   res.redirect(routes.videoDetail(newVideo.id));
 }; // To Do : Upload and Save video
@@ -52,7 +56,8 @@ export const videoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
+
     res.render("videoDetail", { pageTitle: video.title, video }); //여기서 정해진 data(ex.video)를 template(editVideo.pug)으로 전달.
   } catch (error) {
     res.redirect(routes.home);
@@ -65,7 +70,12 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+
+    if (video.creator == req.user.id) {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    } else {
+      throw Error();
+    }
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -83,12 +93,18 @@ export const postEditVideo = async (req, res) => {
     res.redirect(routes.home);
   }
 };
+
 export const deleteVideo = async (req, res) => {
   const {
     params: { id },
   } = req;
   try {
-    await Video.findOneAndRemove({ _id: id });
+    const video = await Video.findById(id);
+    if (video.creator !== req.user.id) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     console.log(error);
   }
