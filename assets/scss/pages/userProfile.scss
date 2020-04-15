@@ -1,0 +1,31 @@
+.user-profile,
+.user-profile__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .user-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  .profile__username {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .profile__useremail {
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .user-profile__btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .user-profile__btns > a {
+    margin-top: 15px;
+  }
+}

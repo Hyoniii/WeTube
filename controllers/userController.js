@@ -48,10 +48,12 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url, name, email },
   } = profile;
+
   try {
     const user = await User.findOne({ email });
     if (user) {
-      user.githubId = id;
+      user.githubId = id; //내 경우에는 로컬이메일과 깃허브이메일이 동일해서 몽고디비 user정보에서 로컬정보에 깃허브 아이디가 추가.저장된다. 그런 의미의 코드.
+      user.avatarUrl = avatar_url;
       user.save();
       return cb(null, user); //(error,user) 에러는 null이다.
     }
@@ -81,6 +83,7 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
     const user = await User.findOne({ email: kakao_account.email });
     if (user) {
       user.kakaoId = id;
+      user.avatarUrl = avatar_url;
       user.save();
       return done(null, user);
     }
@@ -128,7 +131,43 @@ export const userDetail = async (req, res) => {
   }
 };
 
-export const editProfile = (req, res) =>
+export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
-export const changePassword = (req, res) =>
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req; //바뀐 내용.
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl, //file이 있으면  file.path 없으면
+    }); //바뀐걸로 업로드
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect(routes.editProfile);
+  }
+};
+
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Chang Password" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(`/users/${routes.changePassword}`);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(`/users/${routes.changePassword}`);
+  }
+};
