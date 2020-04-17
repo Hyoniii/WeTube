@@ -57,7 +57,7 @@ export const videoDetail = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id).populate("creator");
-
+    console.log(video.creator.id);
     res.render("videoDetail", { pageTitle: video.title, video }); //여기서 정해진 data(ex.video)를 template(editVideo.pug)으로 전달.
   } catch (error) {
     res.redirect(routes.home);

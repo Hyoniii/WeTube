@@ -9,9 +9,9 @@ block content
             h5.profile__useremail=user.email
         if loggedUser && loggedUser.id === user.id
             .user-profile__btns
-                a(href=`users${routes.editProfile}`)
+                a(href=`/users${routes.editProfile}`)
                     button 🔏 Edit Profile
-                a(href=`users${routes.changePassword}`)
+                a(href=`/users${routes.changePassword}`)
                     button 🔐 Change Password
         .home-videos
             each item in user.videos 

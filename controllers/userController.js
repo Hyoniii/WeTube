@@ -111,8 +111,16 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+export const getMe = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(req.user.id).populate("videos"); //user에 id.videos의 세부(모든)정보를 보이게 넣겠다.
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
   //여기서 유저는 현재 로그인 된 유저
 };
 
