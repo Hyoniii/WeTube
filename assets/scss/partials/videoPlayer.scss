@@ -31,6 +31,15 @@
         margin-right: 10px;
       }
     }
+    .videoPlayer__volume {
+      position: absolute;
+      padding: 0;
+      opacity: 1;
+      top: -53px;
+      left: -20px;
+      transform: rotate(-90deg);
+      width: 80px;
+    }
     .videoPlayer__column:last-child {
       justify-self: end;
     }
