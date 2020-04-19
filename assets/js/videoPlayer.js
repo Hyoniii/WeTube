@@ -92,7 +92,7 @@ function handleDrag(event) {
 }
 
 function init() {
-  videoPlayer.volume = 0.5;
+  videoPlayer.volume = 0.5; //We need to set the volume level of the video via JS so it's the same as what the bar says. The bar is at the middle so volume should be 0.5
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScrnBtn.addEventListener("click", goFullScreen);
