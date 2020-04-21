@@ -27,6 +27,10 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const KAKAO = "/auth/kakao";
 const KAKAO_CALLBACK = "/auth/kakao/callback";
 
+//API,AJAX  /유저를 위한 route가 아니다. render X
+const API = "/api"; //just 서버와 통신 하기위한 URL, 유저 접근 x,렌더 x
+const REGISTER_VIEW = "/:id/view";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -73,6 +77,8 @@ const routes = {
   me: ME,
   kakao: KAKAO,
   kakaoCallback: KAKAO_CALLBACK,
+  api: API,
+  registerView: REGISTER_VIEW,
 };
 
 export default routes;

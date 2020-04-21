@@ -110,3 +110,22 @@ export const deleteVideo = async (req, res) => {
   }
   res.redirect(routes.home);
 };
+
+//Register Video View
+//서버만 소통. 그래서 연결된 템플릿 X
+export const registerView = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    video.views += 1;
+    video.save(); //ideo.save() updates the video on the database.
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end(); //res.end() finishes the connection with the client.
+  }
+};
