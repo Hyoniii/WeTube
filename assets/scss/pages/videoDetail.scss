@@ -45,12 +45,14 @@
   }
   .video__comments-list {
     margin-top: 50px;
-    li {
-      background-color: #3498db;
+    span {
+      background-color: rgba(209, 1, 1, 0.829);
       color: white;
       padding: 15px;
       border-radius: 20px;
       border-bottom-left-radius: 0px;
+      display: block;
+      margin: 12px 0;
       &:not(:last-child) {
         margin-bottom: 15px;
       }
