@@ -31,10 +31,14 @@
         margin-right: 10px;
       }
     }
+    .videoPlayer__volumeBTN:hover ~ .videoPlayer__volume {
+      opacity: 1;
+    }
     .videoPlayer__volume {
       position: absolute;
+      opacity: 0;
+      transition: opacity 0.2s linear;
       padding: 0;
-      opacity: 1;
       top: -53px;
       left: -20px;
       transform: rotate(-90deg);

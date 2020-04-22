@@ -4,13 +4,18 @@ Cloning Youtube with Vanilla and NodeJS
 
 ## Pages:
 
-- [ ] Home
+- [x] Home
 - [x] Join
 - [x] Login
 - [x] Search
-- [ ] User Detail
-- [ ] Edit Profile
-- [ ] Change Password
-- [ ] Upload
-- [ ] Video Detail
-- [ ] Edit Video
+- [x] User Detail
+- [x] Edit Profile
+- [x] Upload
+- [x] Video Detail
+- [x] Change Password
+- [x] Edit Video
+
+## have to lean
+
+req.user.save() is saving the user that requested the page.
+user.save() is saving any user.

@@ -30,6 +30,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 //API,AJAX  /유저를 위한 route가 아니다. render X
 const API = "/api"; //just 서버와 통신 하기위한 URL, 유저 접근 x,렌더 x
 const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
 
 const routes = {
   home: HOME,
@@ -79,6 +80,7 @@ const routes = {
   kakaoCallback: KAKAO_CALLBACK,
   api: API,
   registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
 };
 
 export default routes;

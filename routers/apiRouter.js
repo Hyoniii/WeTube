@@ -1,9 +1,10 @@
 import express from "express";
 import routes from "../routes";
-import { registerView } from "../controllers/videoController";
+import { registerView, postAddComment } from "../controllers/videoController";
 
 const apiRouter = express.Router();
 
-apiRouter.get(routes.registerView, registerView); //위치가 중요. userDetail보다 위에 위채해야 :id가 제대로 인식.
+apiRouter.post(routes.registerView, registerView); //DB를 변경할 필요가 없으면 getRequest, DB를 변경해야하는 경우는 post
+apiRouter.post(routes.addComment, postAddComment);
 
 export default apiRouter;
