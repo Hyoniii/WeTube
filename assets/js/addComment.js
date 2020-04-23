@@ -1,18 +1,11 @@
 import axios from "axios";
+
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
-const delButton = document.getElementById("jsDelBtn");
 
 const decreaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;
-};
-
-const deleteBtn = () => {
-  const span = event.target.parentNode;
-  const li = span.parentNode;
-  commentList.removeChild(li);
-  decreaseNumber();
 };
 
 const increaseNumber = () => {
@@ -52,7 +45,6 @@ const handleSubmit = (event) => {
 
 function init() {
   addCommentForm.addEventListener("submit", handleSubmit);
-  delButton.addEventListener("click", deleteBtn);
 }
 
 if (addCommentForm) {

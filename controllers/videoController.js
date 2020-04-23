@@ -164,11 +164,10 @@ export const deleteComment = async (req, res) => {
     user,
   } = req;
   try {
-    const comment = await Comment.findById(id);
-    if (comment.creator.toString() !== user.id.toString()) {
-      throw Error();
-    }
-    await Comment.findByIdAndRemove(id);
+    const delComment = await Comment.find({
+      creator: user.id,
+    });
+    await Comment.findByIdAndRemove(delComment.id);
   } catch (error) {
     res.status(400);
   } finally {
