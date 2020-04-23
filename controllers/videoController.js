@@ -149,6 +149,7 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
+
     video.save();
   } catch (error) {
     res.status(400);
@@ -160,23 +161,14 @@ export const postAddComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   const {
     params: { id },
-    body: { comment },
     user,
   } = req;
   try {
-    const video = await Video.findById(id);
-    const delComment = await Comment.update(
-      { _id: id },
-      {
-        $pull: {
-          text: comment,
-          creator: user.id,
-        },
-      }
-    );
-
-    video.comments.remove(delComment.id);
-    video.save();
+    const comment = await Comment.findById(id);
+    if (comment.creator.toString() !== user.id.toString()) {
+      throw Error();
+    }
+    await Comment.findByIdAndRemove(id);
   } catch (error) {
     res.status(400);
   } finally {

@@ -36,5 +36,5 @@ block content
                 each comment in video.comments.reverse()
                     li
                         span=comment.text 
-                            if loggedUser.id
+                            if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
                                 button#jsDelBtn.commentDelBtn  ✖️
