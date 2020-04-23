@@ -11,7 +11,7 @@ const decreaseNumber = () => {
 const deleteBtn = () => {
   const span = event.target.parentNode;
   const li = span.parentNode;
-  li.parentNode.removeChild(li);
+  commentList.removeChild(li);
   decreaseNumber();
 };
 
