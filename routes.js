@@ -31,6 +31,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 const API = "/api"; //just 서버와 통신 하기위한 URL, 유저 접근 x,렌더 x
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
+const DEL_COMMENT = "/:id/comment";
 
 const routes = {
   home: HOME,
@@ -81,6 +82,7 @@ const routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
+  delComment: DEL_COMMENT,
 };
 
 export default routes;

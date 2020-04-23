@@ -34,22 +34,20 @@ input:not([type="file"]),
     font-weight: 300;
   }
 }
-button {
+button:not(.commentDelBtn) {
   width: 300px;
   padding: 7px 10px;
   font-size: 14px;
   border-radius: 5px;
   border: none;
 }
-button:not(.social-login--kakao) {
+button:not(.social-login--kakao .commentDelBtn) {
   background-color: #3498db;
   color: white;
 }
-
 button.delete {
   background-color: $dark-red;
 }
-
 button,
 input[type="submit"] {
   cursor: pointer;
@@ -58,4 +56,11 @@ input[type="submit"] {
   label {
     margin-right: 10px;
   }
+}
+.commentDelBtn {
+  margin-left: 20px;
+  background-color: #ffffff00;
+  font-size: 18px;
+  border: none;
+  align-items: center;
 }
