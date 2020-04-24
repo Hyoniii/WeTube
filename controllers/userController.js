@@ -83,7 +83,6 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
     const user = await User.findOne({ email: kakao_account.email });
     if (user) {
       user.kakaoId = id;
-      user.avatarUrl = avatar_url;
       user.save();
       return done(null, user);
     }

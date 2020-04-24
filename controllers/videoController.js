@@ -60,7 +60,7 @@ export const videoDetail = async (req, res) => {
     const video = await Video.findById(id)
       .populate("creator")
       .populate("comments");
-    console.log(video.creator.id);
+    //console.log(video.creator.id);
 
     res.render("videoDetail", { pageTitle: video.title, video }); //여기서 정해진 data(ex.video)를 template(editVideo.pug)으로 전달.
   } catch (error) {
@@ -149,7 +149,10 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
-
+    /*console.log(newComment.id);
+    console.log(user.id);
+    console.log(id);
+    console.log(newComment);*/
     video.save();
   } catch (error) {
     res.status(400);
@@ -164,10 +167,11 @@ export const deleteComment = async (req, res) => {
     user,
   } = req;
   try {
-    const delComment = await Comment.find({
-      creator: user.id,
-    });
-    await Comment.findByIdAndRemove(delComment.id);
+    console.log(user);
+    const video = await Video.findById(id);
+    const delComment = await Comment.findById(id);
+    console.log(delComment);
+    // await Comment.findByIdAndRemove(delComment.id);
   } catch (error) {
     res.status(400);
   } finally {
