@@ -31,10 +31,11 @@ block content
                     |  comments            
             form.add__comment#jsAddComment
                 input(type="text", placeholder="Add a comment")
+            
             ul.video__comments-list#jsCommentList
-                
                 each comment in video.comments.reverse()
                     li
                         span=comment.text 
                             if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
-                                button(id=`${comment._id}`).commentDelBtn  ✖️
+                                span(id=`${comment._id}`)
+                                    button.commentDelBtn  
