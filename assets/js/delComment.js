@@ -11,14 +11,16 @@ const decreaseNumber = () => {
 
 const delComment = (event) => {
   const span = event.target.parentNode;
-  const spani = span.parentNode;
-  const li = spani.parentNode;
+  //const spani = span.parentNode;
+  const li = span.parentNode;
   commentList.removeChild(li);
   decreaseNumber();
 };
 
-const sendDelComment = async (event) => {
-  const commentId = event.target.parentNode.id;
+export const sendDelComment = async (event) => {
+  //const span = event.target.parentNode;
+  //const li = span.parentNode;
+  const commentId = event.target.id;
   const response = await axios({
     url: `/api/${commentId}/delete/comment`,
     method: "POST",
@@ -38,6 +40,10 @@ const sendDelComment = async (event) => {
     addComment(comment);
   }*/
 };
+export const handleDelBtn = (event) => {
+  sendDelComment(event);
+};
+
 const btnAddEvent = () => {
   for (let i = 0; i < commnetDelBtn.length; i++) {
     commnetDelBtn[i].addEventListener("click", sendDelComment);

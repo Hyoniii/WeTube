@@ -1,10 +1,12 @@
 import axios from "axios";
-import "./delComment";
+import handleDelBtn from "./delComment";
 
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
-const commnetDelBtn = document.getElementsByClassName("commentDelBtn");
+//const commnetDelBtn = document.getElementsByClassName("commentDelBtn");
+//for (let i = 0; i < commnetDelBtn.length; i++) {
+// commnetDelBtn[i].innerHTML = "✖️";}
 
 const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
@@ -13,16 +15,14 @@ const increaseNumber = () => {
 const addComment = (comment) => {
   const li = document.createElement("li");
   const span = document.createElement("span");
-  const spani = document.createElement("span");
   const btn = document.createElement("button");
   btn.innerHTML = "✖️";
   btn.className = "commentDelBtn";
   span.innerHTML = comment;
-  spani.appendChild(btn);
-  span.appendChild(spani);
+  span.appendChild(btn);
   li.appendChild(span);
   commentList.prepend(li);
-
+  btn.addEventListener("click", handleDelBtn);
   increaseNumber();
 };
 

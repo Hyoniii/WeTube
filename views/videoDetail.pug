@@ -37,5 +37,4 @@ block content
                     li
                         span=comment.text 
                             if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
-                                span(id=`${comment._id}`)
-                                    button.commentDelBtn  
+                                button(id=`${comment._id}`).commentDelBtn  
