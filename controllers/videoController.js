@@ -149,10 +149,6 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
-    /*console.log(newComment.id);
-    console.log(user.id);
-    console.log(id);
-    console.log(newComment);*/
     video.save();
   } catch (error) {
     res.status(400);
@@ -160,21 +156,55 @@ export const postAddComment = async (req, res) => {
     res.end();
   }
 };
-
+//유저 안에 있ㄴㄴ 배열에서 지우기
+//비디오 안에 있는 배열에서 지우기
+//프론트에서 지우기
 export const deleteComment = async (req, res) => {
   const {
     params: { id },
     user,
   } = req;
   try {
-    console.log(user);
-    const video = await Video.findById(id);
     const delComment = await Comment.findById(id);
-    console.log(delComment);
+    if (delComment.creator != req.user.id) {
+      throw Error();
+    } else {
+      await Comment.findByIdAndRemove({ _id: id });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+/*const {
+    params,
+    //body: { comment },
+    user,
+  } = req;
+  try {
+    console.log(params);
+    /*const com = await Comment.find(comment);
+    if (user.id !== com.creator) {
+      throw Error();
+    } else [
+      await video.findOneAndRemove({_id:id})
+    ]
+    }
+      
+    }
+    //const commentList = await video.comments; //comment.id
+    //const commentUser = await user;
+    //const commentId = await Comment.findById(id);
+    console.log(comment);
+    //console.log(commentUser.comments);
+    //const delComment = await video.comments.findOneAndRemove();
+    //console.log(delComment);
     // await Comment.findByIdAndRemove(delComment.id);
   } catch (error) {
     res.status(400);
   } finally {
     res.end();
   }
-};
+};   */

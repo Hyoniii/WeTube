@@ -2,7 +2,7 @@ import axios from "axios";
 
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
-const commnetDelBtn = document.getElementById("jsDelBtn");
+const commnetDelBtn = document.getElementsByClassName("commentDelBtn");
 
 const decreaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;
@@ -16,9 +16,9 @@ const delComment = (event) => {
 };
 
 const sendDelComment = async (event) => {
-  const videoId = window.location.href.split("/videos/")[1];
+  const commentId = event.target.id;
   const response = await axios({
-    url: `/api/${videoId}/delete/comment`,
+    url: `/api/${commentId}/delete/comment`,
     method: "POST",
   });
   if (response.status === 200) {
@@ -36,9 +36,14 @@ const sendDelComment = async (event) => {
     addComment(comment);
   }*/
 };
+const btnAddEvent = () => {
+  for (let i = 0; i < commnetDelBtn.length; i++) {
+    commnetDelBtn[i].addEventListener("click", sendDelComment);
+  }
+};
 
 function init() {
-  commnetDelBtn.addEventListener("click", sendDelComment);
+  btnAddEvent();
 }
 
 if (commentList) {
