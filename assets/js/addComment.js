@@ -33,6 +33,7 @@ const sendComment = async (comment) => {
     method: "POST",
     data: {
       comment,
+      commentId: comment._id,
     },
   });
   if (response.status === 200) {
