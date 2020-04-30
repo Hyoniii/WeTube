@@ -4,6 +4,7 @@ import {
   registerView,
   postAddComment,
   deleteComment,
+  middleComment,
 } from "../controllers/videoController";
 
 const apiRouter = express.Router();

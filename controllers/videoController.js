@@ -149,8 +149,9 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
-
     video.save();
+    const commentId = await Comment.findById(newComment.id);
+    console.log(commentId._id);
   } catch (error) {
     res.status(400);
   } finally {
