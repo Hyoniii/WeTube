@@ -82,7 +82,13 @@ const routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
-  delComment: DEL_COMMENT,
+  delComment: (id) => {
+    if (id) {
+      return `/${id}/delete/comment`;
+    } else {
+      return DEL_COMMENT;
+    }
+  },
 };
 
 export default routes;

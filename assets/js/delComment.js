@@ -40,8 +40,9 @@ export const sendDelComment = async (event) => {
     addComment(comment);
   }*/
 };
-export const handleDelBtn = (event) => {
-  sendDelComment(event);
+
+export const handleDelBtn = () => {
+  addDelEvent();
 };
 
 const btnAddEvent = () => {

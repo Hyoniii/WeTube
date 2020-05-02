@@ -137,6 +137,7 @@ export const registerView = async (req, res) => {
 // Add Comment
 
 export const postAddComment = async (req, res) => {
+  console.log(req.params);
   const {
     params: { id },
     body: { comment },

@@ -18,11 +18,11 @@ const addComment = (comment) => {
   const btn = document.createElement("button");
   btn.innerHTML = "✖️";
   btn.className = "commentDelBtn";
+  btn.addEventListener("click", handleDelBtn);
   span.innerHTML = comment;
   span.appendChild(btn);
   li.appendChild(span);
   commentList.prepend(li);
-  btn.addEventListener("click", handleDelBtn);
   increaseNumber();
 };
 

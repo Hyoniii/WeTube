@@ -1,6 +1,8 @@
 extends layouts/main
 include mixins/videoPlayer
 
+
+
 block content
    .video-detail__container
         +videoPlayer({
@@ -37,4 +39,4 @@ block content
                     li
                         span=comment.text 
                             if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
-                                button(id=`${comment._id}`).commentDelBtn  
+                                button(id=`${comment._id}`).commentDelBtn
