@@ -169,11 +169,14 @@ export const deleteComment = async (req, res) => {
   } = req;
   try {
     const delComment = await Comment.findById(id);
+    const delCommentId = require("mongoose").Types.ObjectId(delComment._id);
+    console.log(delCommentId);
     if (delComment.creator != req.user.id) {
       throw Error();
     } else {
-      await Comment.findByIdAndRemove({ _id: id });
+      await Comment.findByIdAndRemove(delCommentId);
     }
+    res.status(200);
   } catch (error) {
     console.log(error);
     res.status(400);

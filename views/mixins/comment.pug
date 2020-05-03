@@ -1,0 +1,7 @@
+mixin commentBlock(comment = {})
+  .commentBlock
+    ul.video__comments-list#jsCommentList
+      li
+        span=comment.text
+          if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
+          button(id=`${comment._id}`).commentDelBtn ✖︎
