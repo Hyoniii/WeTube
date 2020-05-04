@@ -1,8 +1,8 @@
 import axios from "axios";
 import "./addComment";
 
-const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
+const commentList = document.getElementById("jsCommentList");
 const commnetDelBtn = commentList.getElementsByTagName("button");
 
 const decreaseNumber = () => {
@@ -25,6 +25,7 @@ export const sendDelComment = async (event) => {
     url: `/api/${commentId}/delete/comment`,
     method: "POST",
   });
+
   if (response.status === 200) {
     delComment(event);
   }
@@ -41,11 +42,7 @@ export const sendDelComment = async (event) => {
   }*/
 };
 
-export const handleDelBtn = () => {
-  addDelEvent();
-};
-
-const btnAddEvent = () => {
+export const btnAddEvent = () => {
   for (let i = 0; i < commnetDelBtn.length; i++) {
     commnetDelBtn[i].innerHTML = "✖︎";
     commnetDelBtn[i].addEventListener("click", sendDelComment);

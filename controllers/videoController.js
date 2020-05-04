@@ -137,7 +137,6 @@ export const registerView = async (req, res) => {
 // Add Comment
 
 export const postAddComment = async (req, res) => {
-  console.log(req.params);
   const {
     params: { id },
     body: { comment },
@@ -153,6 +152,8 @@ export const postAddComment = async (req, res) => {
     video.save();
     const commentId = await Comment.findById(newComment.id);
     console.log(commentId._id);
+    res.send(JSON.stringify(commentId));
+    //res.render("videoDetail", { "comment.id": commentId });
   } catch (error) {
     res.status(400);
   } finally {

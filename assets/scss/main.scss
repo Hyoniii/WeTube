@@ -34,14 +34,14 @@ input:not([type="file"]),
     font-weight: 300;
   }
 }
-button:not(.commentDelBtn) {
+button:not(.video__commentDelBtn) {
   width: 300px;
   padding: 7px 10px;
   font-size: 14px;
   border-radius: 5px;
   border: none;
 }
-button:not(.social-login--kakao .commentDelBtn) {
+button:not(.social-login--kakao .video__commentDelBtn) {
   background-color: #3498db;
   color: white;
 }
@@ -57,7 +57,7 @@ input[type="submit"] {
     margin-right: 10px;
   }
 }
-.comDelBtn {
+.video__commentDelBtn {
   margin-left: 20px;
   background-color: #ffffff00;
   font-size: 18px;

@@ -1,9 +1,10 @@
 import axios from "axios";
-import handleDelBtn from "./delComment";
+import { sendDelComment } from "./delComment";
 
+const commentNumber = document.getElementById("jsCommentNumber");
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
-const commentNumber = document.getElementById("jsCommentNumber");
+//const commentText =
 //const commnetDelBtn = document.getElementsByClassName("commentDelBtn");
 //for (let i = 0; i < commnetDelBtn.length; i++) {
 // commnetDelBtn[i].innerHTML = "✖️";}
@@ -12,17 +13,20 @@ const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
 
-const addComment = (comment) => {
+const addComment = (comment, commentId) => {
   const li = document.createElement("li");
+  li.className = "video__comments";
   const span = document.createElement("span");
+  span.className = "video__comments-text";
   const btn = document.createElement("button");
+  btn.className = "video__commentDelBtn";
   btn.innerHTML = "✖️";
-  btn.className = "commentDelBtn";
-  btn.addEventListener("click", handleDelBtn);
+  btn.setAttribute("value", commentId);
   span.innerHTML = comment;
   span.appendChild(btn);
   li.appendChild(span);
   commentList.prepend(li);
+  btn.addEventListener("click", sendDelComment);
   increaseNumber();
 };
 
@@ -35,8 +39,10 @@ const sendComment = async (comment) => {
       comment,
     },
   });
+  console.log(response.data._id);
+  const commentId = response.data._id;
   if (response.status === 200) {
-    addComment(comment);
+    addComment(comment, commentId);
   }
 };
 

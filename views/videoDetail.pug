@@ -36,7 +36,7 @@ block content
             
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
-                    li
-                        span=comment.text 
+                    li.video__comments
+                        span.video__comments-text=comment.text 
                             if loggedUser && comment.creator._id.toString() === loggedUser.id.toString()
-                                button.commentDelBtn(value=comment.id)
+                                button.video__commentDelBtn(value=comment.id)
