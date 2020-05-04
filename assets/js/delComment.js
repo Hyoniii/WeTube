@@ -3,7 +3,9 @@ import "./addComment";
 
 const commentNumber = document.getElementById("jsCommentNumber");
 const commentList = document.getElementById("jsCommentList");
-const commnetDelBtn = commentList.getElementsByTagName("button");
+const commnetDelBtn = commentList.getElementsByClassName(
+  "video__commentDelBtn"
+);
 
 const decreaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;

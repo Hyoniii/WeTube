@@ -101,13 +101,16 @@ export const postEditVideo = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   const {
     params: { id },
+    user,
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator !== req.user.id) {
+    console.log(video.creator);
+    console.log(user.id);
+    if (video.creator !== user.id) {
       throw Error();
     } else {
-      await Video.findOneAndRemove({ _id: id });
+      await Video.findByIdAndRemove({ _id: id });
     }
   } catch (error) {
     console.log(error);
