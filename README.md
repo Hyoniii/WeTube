@@ -177,7 +177,7 @@ npm install pug
 app.set("view engine",pug)으로 뷰엔진 확장.
 "/view" 폴더 생성하고 그 안에 퍼그 파일들 모두 저장.
 이 템플릿을 웹사이트에 보여주려면 controller에서
-res.render("템플릿파일")
+res.render("템플릿파일","템플릿에 추가할 정보 담긴 객체")
 \*\* Pug : HTML CSS를 논리적으로 작업 가능 & <>대신 들여쓰기 사용
 
 - views 폴더에 layouts 폴더 생성
@@ -195,6 +195,18 @@ res.render("템플릿파일")
 
 * pug에 자바스크립트 코드 작성하기 : #{ } 안에 쓰기
 
+* 템플릿에 컨트롤러 정보 추가 // [locals](http://expressjs.com/ko/api.html#app.locals)
+
+미들웨어
+
+- locals를 이용해 전역범위 변수 추가(뷰)
+  - 템플릿 전체에 추가하기
+  - ex) 헤더라 라우트 객체에 접근
+    - locals 미들웨어 만들어 사용 : local 변수를 global 변수로 사용하게 함
+      - res.locals.변수명 = 정보
+      - pug 파일에서 #{변수명}으로 사용 가능
+      - app.locals will be accessible to the application, and res.locals will go directly to the template.
+
 block / include 차이
 (단순히 어떤 파일 또는 코드 덩어리를 미리 만들어놓고 불러온다는 기능만 봤을 때는 block(extends)과 includes는 같습니다.
 하지만 차이가 있습니다.
@@ -208,3 +220,71 @@ block / include 차이
    그러나 block은 다른 파일에서 extends로 불러온 후에 재정의하거나 새로 추가할 수 있습니다. (= 동적)
 
 출처: https://jeong-pro.tistory.com/65 [기본기를 쌓는 정아마추어 코딩블로그])
+
+- mixin: 웹사이트에서 자주 반복되는 html 코드를 재활용하는 방법
+
+* pug 함수의 일종
+  - 인자 1개 필요
+    mixin은 pug의 함수의 일종
+
+Mixin is to recycle the same HTML structure and keep it organized on a different file.
+A partial is just a part of html that you use over and over again.
+A mixin is the same but the data inside of it has to vary.
+Q.partials과 mixins의 차이는 무엇인가요? 둘 다 재활용된다는 공통점이 있는 것 같은데..
+지금까지 했던 걸 보면 partials은 모든 views에 적용되고 mixins은 부분부분 적용된 거라 생각했는데
+맞나요?
+
+A.partials are just the same pieces of HTML blocks.
+mixins are HTML blocks with different dynamic content.
+
+get을 쓰는 것들은 url창에 보이고, render를 하기 위한 용도이고,
+post를 쓰는 것들은 url창에 안 보이는 다른 작업들 (예를 들면 verify password나 req.body 등)을 하기 위한 것으로 이해했습니다.
+
+Q.
+logout 에 대해 궁금한게있어요!
+userController.js에서 홈(routes.home)으로 이동시켜주는 기능을 만드는것까지 이해했습니다.
+
+근데 이 const logout(userController에서의)이 header에서 실행되는걸로 알고있는데 header에는 routes.logout으로 즉 "/logout" 로만 실행되는데 이게 어떻게 const logout과 연결되는지 헷갈려서 질문드려요!
+정리하자면, userController에서의 const logout이 어떤 원리로 실행되는지 궁금합니다!
+A.
+header.pug > " a(href=routes.logout) Log Out " a태그를 클릭하게 되면
+routes.js 에서 logout에 해당하는 링크로 가라고 안내해줄 것이고
+app.js에서 /(home)로 시작하는 주소는 globalRouter를 사용하라고 설정했으니
+globalRouter.js > " globalRouter.get(routes.logout, logout); " 구문으로 갈것이고
+logout페이지에 대한 요청이 있으면 logout Function을 사용하는 것입니다.
+이제 logout Function에는 routes.home로 redirect하라고 했으니 localhost:4000/으로 가는거죠
+
+### mongoDB
+
+NoSQL database
+
+- "mongoDB Community Servere" Download
+- 터미널에 mongod 실행
+- 터미널에 mongo 실행
+- mongo와 js를 연결하는 두가지 방법
+  - mongoDB
+  - Node.js
+- mongoDB와 js를 연결할 땐 adapter가 필요. mongoose가 그 역할. 몽구스는 Node.js를 위한 Object Modeling
+- ```bash
+  npm install mongoose //몽구스 설치하면 몽고디비는 따라옴
+  npm install dotenv
+  ```
+- 설치 후
+  import mongoose from "mongoose"로 임폴트 해주고
+  [mongoose.connect()](https://mongoosejs.com/docs/connections.html)
+- dotenv는 데이터의 보안을 위한 모듈이다.
+  - .env파일을 만들어준다(파일명은 secret도 상관무)
+  - 그 파일 안에 변수를 만들어준다.(URL,PORT...)
+  - db.js 파일에
+    - ````bash
+      - import dotenv from "dotenv"
+      - dotenv.config
+       - ```
+      ````
+    - dotenv.config함수로 .env파일 안의 정보 가지고 올 수 있다. 찾은 모든 변수들을 process.env.key에 저장.
+- 몽고디비 ,제이슨파일
+- 몽고디비에게 파일이 어껀 식으로 생겨야할지 알려줘야한다.
+- 그게 모델의 형태.
+- 모델은 실제 데이터. 스키마는 형태
+- [schema](https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250)
+  - 이러한 문제를 막기 위해 몽구스는 Schema(스키마)를 도입했습니다. 몽구스는 사용자가 작성한 스키마를 기준으로 데이터를 DB에 넣기 전에 먼저 검사합니다. 스키마에 어긋나는 데이터가 있으면 에러를 발생시킵니다.
