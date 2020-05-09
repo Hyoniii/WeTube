@@ -288,3 +288,30 @@ NoSQL database
 - 모델은 실제 데이터. 스키마는 형태
 - [schema](https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250)
   - 이러한 문제를 막기 위해 몽구스는 Schema(스키마)를 도입했습니다. 몽구스는 사용자가 작성한 스키마를 기준으로 데이터를 DB에 넣기 전에 먼저 검사합니다. 스키마에 어긋나는 데이터가 있으면 에러를 발생시킵니다.
+  - [schema의 required](https://stackoverflow.com/questions/39871236/what-is-the-meaning-required-in-mongoose-schema)
+- [schema](https://mongoosejs.com/docs/guide.html) option 보기
+- 스키마 생성 할 떄 옵션이 있다면 object(객체), 아니면 one line
+- 스키마 정의 후 모델로 변환해야한다.
+  - mongoose.model(modelName, schema):
+    ```
+    //ex
+    const Blog = mongoose.model('Blog', blogSchema);
+    ```
+- 모델 변환 후 init.js 파일에 모델 임포트
+- 모델과 모델을 연결하는 법 (https://mongoosejs.com/docs/api.html#types-objectid-js)
+  ```bash
+  //ex
+  video : { //객체생성
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Video" //연결할 모델명
+  }
+  ```
+  이 과정에서 객체에 들어갈게 배열이라면 [] 추가
+
+#### [multer](https://www.npmjs.com/package/multer)
+파일의 URL을 반환하는 middleware
+```
+npm install multer
+```
+설치 후 관련 form에 entype=multipart/form-data 추가
+미들웨어 파일에 임포트하고 관련 코드 작성

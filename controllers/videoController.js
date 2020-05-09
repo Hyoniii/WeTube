@@ -37,7 +37,7 @@ export const getUpload = (_req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path },
+    file: { path }, // 파일 자체가 아닌 파일의 location을 저장.아주 중요★.multer(미들웨어)를 거친후 path에 ulr경로가 생김
   } = req;
   const newVideo = await Video.create({
     fileUrl: path,
