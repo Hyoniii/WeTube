@@ -120,6 +120,15 @@ request 정보에서 form이나 json 형태로 된 body 검사.
   import {B} from "A.js" means that inside of A.js has a "export B"
   One is for default export and other one not.
 
+#### [multer](https://www.npmjs.com/package/multer)
+파일의 URL을 반환하는 middleware
+```
+npm install multer
+```
+설치 후 관련 form에 entype=multipart/form-data 추가
+미들웨어 파일에 임포트하고 관련 코드 작성
+
+
 ### Route
 
 [basic-route](https://expressjs.com/ko/starter/basic-routing.html)라우팅은 URI(또는 경로) 및 특정한 HTTP 요청 메소드(GET, POST 등)인 특정 엔드포인트에 대한 클라이언트 요청에 애플리케이션이 응답하는 방법을 결정하는 것을 말한다.
@@ -153,6 +162,17 @@ express.Router 클래스를 사용하면 모듈식 마운팅 가능한 핸들러
 
 라우팅을 이용해 controller,app,view을 구분해주는게 좋다.
 더 깔끔한 코드.
+
+#### [express.static](http://expressjs.com/ko/starter/static-files.html)
+정적인 파일들을 제공한다. 
+이미지, CSS 파일 및 JavaScript 파일과 같은 정적 파일을 제공하려면 Express의 기본 제공 미들웨어 함수인 express.static을 사용하십시오.
+주로 front-end에서 쓰이는 js나 css file에 쓰인다.(public)
+
+  - 정적파일
+    프로그래밍적으로 만들어진 파일이 동적 파일이고
+    사람이 작성한 것이 언제나 똑같이 보이는 것이 정적 파일이다.
+
+
 
 ### -M(odel) V(iew) C(ontroller)
 
@@ -308,10 +328,5 @@ NoSQL database
   ```
   이 과정에서 객체에 들어갈게 배열이라면 [] 추가
 
-#### [multer](https://www.npmjs.com/package/multer)
-파일의 URL을 반환하는 middleware
-```
-npm install multer
-```
-설치 후 관련 form에 entype=multipart/form-data 추가
-미들웨어 파일에 임포트하고 관련 코드 작성
+- 그 후 database 생성 [과정](https://velopert.com/457)
+  
