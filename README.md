@@ -128,6 +128,12 @@ npm install multer
 설치 후 관련 form에 entype=multipart/form-data 추가
 미들웨어 파일에 임포트하고 관련 코드 작성
 
+#### [regular expressions](https://regex101.com/)
+정규 표현식은 주어진 패턴에 일치하는 문자열을 찾기 위해 하용하는 검색 패턴이다.
+정규 표현식 은 formal language 이며, regular expression 혹은 rational expression 라 부르며, 약어로 regexp, regex 로 부른다.
+formal language 은 특정한 법칙 들로 구성된 문자열 들의 집합 을 의미한다.
+정규 표현식은 문자열에 나타는 특정 문자 조합과 대응시키기 위해 사용되는 패턴. 자바스크립트에서, 정규 표현식 또한 객체이다. 
+
 
 ### Route
 
@@ -330,3 +336,5 @@ NoSQL database
 
 - 그 후 database 생성 [과정](https://velopert.com/457)
   
+#### path.join vs path.resolve
+[차이정](https://programming119.tistory.com/106)
