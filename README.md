@@ -337,4 +337,148 @@ NoSQL database
 - 그 후 database 생성 [과정](https://velopert.com/457)
   
 #### path.join vs path.resolve
-[차이정](https://programming119.tistory.com/106)
+[차이점](https://programming119.tistory.com/106)
+
+### [webpack](https://webpack.js.org/)
+webpack은 module bundler이다.
+옛날 자바스크립트는 모듈 개념이 없었기 때문에 파일이 나누어져 있어도 변수 스코프를 생각하면서 개발을 해야했다.
+(중복되면 변수끼리 충돌을 일으키기 때문에)
+이런 문제를 해결하기위해 최신 자바스크립트부터는 모듈 개념이 생겼는데 모던 자바스크립트를 지원을 안하는 브라우저들도 있기 때문에 브라우저들이 지원할 수 있는 코드로 변환해 줘야한다. 그 역할을 하는게 모듈 번들러 => 웹팩이다.
+모듈 번들러는 여러개의 자바스크립트 파일을 하나의 파일로 묶어서 한 번의 요청을 통해 가지고 올 수 있게 해준다.
+또 최신 자바스크립트 문법을 브라우저에서 사용할 수 있게 해준다.
+
+[기본개념](https://velog.io/@hih0327/Webpack-%EA%B8%B0%EC%B4%88)
+- Webpack
+웹팩(Webpack)은 자바스크립트 정적 모듈 번들러(Static Module Bundler)이다
+웹팩에서 모든 것은 모듈이다. 자바스크립트, 스타일시트, 이미지 등 모든 것을 자바스크립트 모듈로 로딩해서 사용한다.
+웹팩의 주요 네 가지 개념으로 Entry, Output, Loader, Plugin이 있다.
+- 1. Entry
+의존성 그래프의 시작점을 웹팩에서는 엔트리(Entry)라고 한다.
+웹팩은 엔트리를 통해서 필요한 모듈을 로딩하고 하나의 파일로 묶는다.
+여러개의 엔트리가 존재할 수 있다.
+- 2. Output
+엔트리에 설정한 자바스크립트 파일을 시작으로 하나로 묶는다. 그후 번들된 결과물을 처리할 위치를 output에 기록한다.
+- 3. Loader
+웹팩은 오직 JavaScript와 Json만 이해할 수 있다.
+로더는 다른 Type의 파일(img, font, stylesheet 등)을 웹팩이 이해하고 처리 가능한 모듈로 변환 시키는 작업을 한다.
+- 4. Plugin
+로더가 파일단위로 처리하는 반면 플러그인은 번들된 결과물을 처리한다.
+로더가 변환하는 동안 플러그인은 bundle optimization, asset management and injection of environment과 같은 일을 진행할 수 있다.
+
+##### 1. package.json 파일 생성
+```
+npm init -y
+```
+##### 2. webpack 및 사용할 라이브러리 설치
+```
+//블로그 예시로 블로거가 사용하는 라이브러리가 포함 되어있다.
+npm install -save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader clean-webpack-plugin css-loader html-loader html-webpack-plugin mini-css-extract-plugin node-sass react react-dom sass-loader style-loader webpack webpack-cli webpack-dev-server
+```
+##### 3. ./src/test.js 생성
+```
+// ./src/test.js
+
+console.log("webpack test");
+```
+##### 4. ./webpack.config.js 생성
+```
+// ./webpack.config.js
+
+const path = require("path");
+
+module.exports = {
+  entry: "./src/test.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname + "/build")
+  },
+  mode: "none"
+};
+```
+##### 5. ./package.json에 내용 수정
+```
+"scripts": {
+    "build": "webpack"
+  },
+  ```
+##### 6. Build 하기
+```
+npm run-script build
+```
+정상적으로 실행이 되었다면 build 폴더와 bundle.js 파일이 생성된다.
+##### 7. Webpack으로 HTML 빌드하기
+웹팩은 js 파일뿐만 아니라 다른 파일도 모듈로 관리 할 수 있다.
+그것을 해주는게 loader
+```
+//로더 사용법
+module : {
+rules: {
+   test: '가지고올 파일 정규식',
+   use: [
+       {
+           loader: '사용할 로더 이름',
+           options: { 사용할 로더 옵션 }
+       }
+   ]
+}
+}
+```
+- 1 ) ./public/index.html 생성
+```
+<!-- ./public/index.html -->
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="utf-8" />
+    <title>WEBPACK4-REACT</title>
+  </head>
+  <body>
+    <noscript>스크립트가 작동되지 않습니다!</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+```
+- 2 ) ./webpack.config.js 수정  
+```
+// ./webpack.config.js
+
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/test.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname + "/build")  //현재 파일 경로와 "내가 원하는 최종 하위경로" 예는 build폴더
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+            template: './public/index.html', // public/index.html 파일을 읽는다.
+      filename: 'index.html' // output으로 출력할 파일은 index.html 이다.
+    })
+  ]
+};
+```
+HtmlWebPackPlugin 은 웹팩이 html 파일을 읽어서 html 파일을 빌드할 수 있게 해준다.
+
+loader 는 html 파일을 읽었을 때 html-loader를 실행하여 웹팩이 이해할 수 있게 하고 options 로는 minimize라는 코드 최적화 옵션을 사용하고 있다.
+
+- 3 ) Build 하기
+```
+npm run-script build
+```
+정상적으로 실행이 되었다면 ./build/index.html 파일이 생성된다
