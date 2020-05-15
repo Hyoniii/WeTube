@@ -482,3 +482,53 @@ loader 는 html 파일을 읽었을 때 html-loader를 실행하여 웹팩이 �
 npm run-script build
 ```
 정상적으로 실행이 되었다면 ./build/index.html 파일이 생성된다
+
+
+### pass port
+쿠키.
+passport 는 인증(authentication) 절차를 로직을 편하게 작업할 수 있게 도와주는 Node.js 미들웨어이다.
+
+npm i passport-local-mongoose
+use model의 기본적인 사용자 인증을 도와줌(만들어줌).
+
+- 유저모델 생성 -> passport 선언 -> passport-local 기본설정 -> 사용
+
+유저 모델 생성할때 { usernameField : 'email'} 은 옵션 중 하나로 username으로 email을 보여주겠다는 뜻이다.
+문서 [참고](https://github.com/saintedlama/passport-local-mongoose)
+
+npm i passport passport-local
+passport는 passport
+passport-local은 username과 passport를 쓰는 사용자 인증 방식(strategy)
+
+passport.js 파일 생성하고
+model(User)와 passport를 import하고
+passport.use(User.createStretagy()) 
+stretagy => 로그인 하는 방식
+ex.username과 password 이용, github, facebook...등이 있다.
+위의 예시 코드에서는 username과 password 이용하는 방식을 만들었다.(passport-local)
+
+https://www.npmjs.com/package/passport-local-mongoose
+Simplified Passport/Passport-Local Configuration
+Starting with version 0.2.1 passport-local-mongoose adds a helper method createStrategy as static method to your schema. The createStrategy is responsible to setup passport-local LocalStrategy with the correct options.
+```
+const User = require('./models/user');
+ 
+// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
+passport.use(User.createStrategy());
+ 
+passport.serializeUser(User.serializeUser());  //어떤 필드가 쿠키에 포함될 것인지 알려주는 역할
+passport.deserializeUser(User.deserializeUser());  //어느 사용자인지 어떻게 찾는가. 쿠키 안의 정보를 어떻게 변환하는가. 
+```
+The reason for this functionality is that when using the usernameField option to specify an alternative usernameField name, for example "email" passport-local would still expect your frontend login form to contain an input field with name "username" instead of email. This can be configured for passport-local but this is double the work. So we got this shortcut implemented.
+
+
+##### passport의 middleware
+```
+passport.initialize()
+passport.session()
+```
+In a Connect or Express-based application, passport.initialize() middleware is required to initialize Passport. If your application uses persistent login sessions, passport.session() middleware must also be used.
+
+initialize  => passport. initialize() is a middle-ware that initialises Passport. Middlewares are functions that have access to the request object (req), the response object (res), and the next middleware function in the application's request-response cycle.
+
+session은 사용하려면 express-session을 설치해야한다.
