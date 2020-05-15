@@ -121,19 +121,22 @@ request 정보에서 form이나 json 형태로 된 body 검사.
   One is for default export and other one not.
 
 #### [multer](https://www.npmjs.com/package/multer)
+
 파일의 URL을 반환하는 middleware
+
 ```
 npm install multer
 ```
+
 설치 후 관련 form에 entype=multipart/form-data 추가
 미들웨어 파일에 임포트하고 관련 코드 작성
 
 #### [regular expressions](https://regex101.com/)
+
 정규 표현식은 주어진 패턴에 일치하는 문자열을 찾기 위해 하용하는 검색 패턴이다.
 정규 표현식 은 formal language 이며, regular expression 혹은 rational expression 라 부르며, 약어로 regexp, regex 로 부른다.
 formal language 은 특정한 법칙 들로 구성된 문자열 들의 집합 을 의미한다.
-정규 표현식은 문자열에 나타는 특정 문자 조합과 대응시키기 위해 사용되는 패턴. 자바스크립트에서, 정규 표현식 또한 객체이다. 
-
+정규 표현식은 문자열에 나타는 특정 문자 조합과 대응시키기 위해 사용되는 패턴. 자바스크립트에서, 정규 표현식 또한 객체이다.
 
 ### Route
 
@@ -170,15 +173,14 @@ express.Router 클래스를 사용하면 모듈식 마운팅 가능한 핸들러
 더 깔끔한 코드.
 
 #### [express.static](http://expressjs.com/ko/starter/static-files.html)
-정적인 파일들을 제공한다. 
+
+정적인 파일들을 제공한다.
 이미지, CSS 파일 및 JavaScript 파일과 같은 정적 파일을 제공하려면 Express의 기본 제공 미들웨어 함수인 express.static을 사용하십시오.
 주로 front-end에서 쓰이는 js나 css file에 쓰인다.(public)
 
-  - 정적파일
-    프로그래밍적으로 만들어진 파일이 동적 파일이고
-    사람이 작성한 것이 언제나 똑같이 보이는 것이 정적 파일이다.
-
-
+- 정적파일
+  프로그래밍적으로 만들어진 파일이 동적 파일이고
+  사람이 작성한 것이 언제나 똑같이 보이는 것이 정적 파일이다.
 
 ### -M(odel) V(iew) C(ontroller)
 
@@ -280,66 +282,8 @@ globalRouter.js > " globalRouter.get(routes.logout, logout); " 구문으로 갈�
 logout페이지에 대한 요청이 있으면 logout Function을 사용하는 것입니다.
 이제 logout Function에는 routes.home로 redirect하라고 했으니 localhost:4000/으로 가는거죠
 
-### mongoDB
-
-NoSQL database
-
-- "mongoDB Community Servere" Download
-- 터미널에 mongod 실행
-- 터미널에 mongo 실행
-- mongo와 js를 연결하는 두가지 방법
-  - mongoDB
-  - Node.js
-- mongoDB와 js를 연결할 땐 adapter가 필요. mongoose가 그 역할. 몽구스는 Node.js를 위한 Object Modeling
-- ```bash
-  npm install mongoose //몽구스 설치하면 몽고디비는 따라옴
-  npm install dotenv
-  ```
-- 설치 후
-  import mongoose from "mongoose"로 임폴트 해주고
-  [mongoose.connect()](https://mongoosejs.com/docs/connections.html)
-- dotenv는 데이터의 보안을 위한 모듈이다.
-  - .env파일을 만들어준다(파일명은 secret도 상관무)
-  - 그 파일 안에 변수를 만들어준다.(URL,PORT...)
-  - db.js 파일에
-    - ````bash
-      - import dotenv from "dotenv"
-      - dotenv.config
-       - ```
-      ````
-    - dotenv.config함수로 .env파일 안의 정보 가지고 올 수 있다. 찾은 모든 변수들을 process.env.key에 저장.
-- 몽고디비 ,제이슨파일
-- 몽고디비에게 파일이 어껀 식으로 생겨야할지 알려줘야한다.
-- 그게 모델의 형태.
-- 모델은 실제 데이터. 스키마는 형태
-- [schema](https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250)
-  - 이러한 문제를 막기 위해 몽구스는 Schema(스키마)를 도입했습니다. 몽구스는 사용자가 작성한 스키마를 기준으로 데이터를 DB에 넣기 전에 먼저 검사합니다. 스키마에 어긋나는 데이터가 있으면 에러를 발생시킵니다.
-  - [schema의 required](https://stackoverflow.com/questions/39871236/what-is-the-meaning-required-in-mongoose-schema)
-- [schema](https://mongoosejs.com/docs/guide.html) option 보기
-- 스키마 생성 할 떄 옵션이 있다면 object(객체), 아니면 one line
-- 스키마 정의 후 모델로 변환해야한다.
-  - mongoose.model(modelName, schema):
-    ```
-    //ex
-    const Blog = mongoose.model('Blog', blogSchema);
-    ```
-- 모델 변환 후 init.js 파일에 모델 임포트
-- 모델과 모델을 연결하는 법 (https://mongoosejs.com/docs/api.html#types-objectid-js)
-  ```bash
-  //ex
-  video : { //객체생성
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Video" //연결할 모델명
-  }
-  ```
-  이 과정에서 객체에 들어갈게 배열이라면 [] 추가
-
-- 그 후 database 생성 [과정](https://velopert.com/457)
-  
-#### path.join vs path.resolve
-[차이점](https://programming119.tistory.com/106)
-
 ### [webpack](https://webpack.js.org/)
+
 webpack은 module bundler이다.
 옛날 자바스크립트는 모듈 개념이 없었기 때문에 파일이 나누어져 있어도 변수 스코프를 생각하면서 개발을 해야했다.
 (중복되면 변수끼리 충돌을 일으키기 때문에)
@@ -348,39 +292,47 @@ webpack은 module bundler이다.
 또 최신 자바스크립트 문법을 브라우저에서 사용할 수 있게 해준다.
 
 [기본개념](https://velog.io/@hih0327/Webpack-%EA%B8%B0%EC%B4%88)
+
 - Webpack
-웹팩(Webpack)은 자바스크립트 정적 모듈 번들러(Static Module Bundler)이다
-웹팩에서 모든 것은 모듈이다. 자바스크립트, 스타일시트, 이미지 등 모든 것을 자바스크립트 모듈로 로딩해서 사용한다.
-웹팩의 주요 네 가지 개념으로 Entry, Output, Loader, Plugin이 있다.
+  웹팩(Webpack)은 자바스크립트 정적 모듈 번들러(Static Module Bundler)이다
+  웹팩에서 모든 것은 모듈이다. 자바스크립트, 스타일시트, 이미지 등 모든 것을 자바스크립트 모듈로 로딩해서 사용한다.
+  웹팩의 주요 네 가지 개념으로 Entry, Output, Loader, Plugin이 있다.
 - 1. Entry
-의존성 그래프의 시작점을 웹팩에서는 엔트리(Entry)라고 한다.
-웹팩은 엔트리를 통해서 필요한 모듈을 로딩하고 하나의 파일로 묶는다.
-여러개의 엔트리가 존재할 수 있다.
+     의존성 그래프의 시작점을 웹팩에서는 엔트리(Entry)라고 한다.
+     웹팩은 엔트리를 통해서 필요한 모듈을 로딩하고 하나의 파일로 묶는다.
+     여러개의 엔트리가 존재할 수 있다.
 - 2. Output
-엔트리에 설정한 자바스크립트 파일을 시작으로 하나로 묶는다. 그후 번들된 결과물을 처리할 위치를 output에 기록한다.
+     엔트리에 설정한 자바스크립트 파일을 시작으로 하나로 묶는다. 그후 번들된 결과물을 처리할 위치를 output에 기록한다.
 - 3. Loader
-웹팩은 오직 JavaScript와 Json만 이해할 수 있다.
-로더는 다른 Type의 파일(img, font, stylesheet 등)을 웹팩이 이해하고 처리 가능한 모듈로 변환 시키는 작업을 한다.
+     웹팩은 오직 JavaScript와 Json만 이해할 수 있다.
+     로더는 다른 Type의 파일(img, font, stylesheet 등)을 웹팩이 이해하고 처리 가능한 모듈로 변환 시키는 작업을 한다.
 - 4. Plugin
-로더가 파일단위로 처리하는 반면 플러그인은 번들된 결과물을 처리한다.
-로더가 변환하는 동안 플러그인은 bundle optimization, asset management and injection of environment과 같은 일을 진행할 수 있다.
+     로더가 파일단위로 처리하는 반면 플러그인은 번들된 결과물을 처리한다.
+     로더가 변환하는 동안 플러그인은 bundle optimization, asset management and injection of environment과 같은 일을 진행할 수 있다.
 
 ##### 1. package.json 파일 생성
+
 ```
 npm init -y
 ```
+
 ##### 2. webpack 및 사용할 라이브러리 설치
+
 ```
 //블로그 예시로 블로거가 사용하는 라이브러리가 포함 되어있다.
 npm install -save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader clean-webpack-plugin css-loader html-loader html-webpack-plugin mini-css-extract-plugin node-sass react react-dom sass-loader style-loader webpack webpack-cli webpack-dev-server
 ```
+
 ##### 3. ./src/test.js 생성
+
 ```
 // ./src/test.js
 
 console.log("webpack test");
 ```
+
 ##### 4. ./webpack.config.js 생성
+
 ```
 // ./webpack.config.js
 
@@ -395,20 +347,28 @@ module.exports = {
   mode: "none"
 };
 ```
+
 ##### 5. ./package.json에 내용 수정
+
 ```
 "scripts": {
     "build": "webpack"
   },
-  ```
+```
+
 ##### 6. Build 하기
+
 ```
 npm run-script build
 ```
+
 정상적으로 실행이 되었다면 build 폴더와 bundle.js 파일이 생성된다.
+
 ##### 7. Webpack으로 HTML 빌드하기
+
 웹팩은 js 파일뿐만 아니라 다른 파일도 모듈로 관리 할 수 있다.
 그것을 해주는게 loader
+
 ```
 //로더 사용법
 module : {
@@ -423,7 +383,9 @@ rules: {
 }
 }
 ```
+
 - 1 ) ./public/index.html 생성
+
 ```
 <!-- ./public/index.html -->
 <!DOCTYPE html>
@@ -438,7 +400,9 @@ rules: {
   </body>
 </html>
 ```
-- 2 ) ./webpack.config.js 수정  
+
+- 2 ) ./webpack.config.js 수정
+
 ```
 // ./webpack.config.js
 
@@ -473,62 +437,216 @@ module.exports = {
   ]
 };
 ```
+
 HtmlWebPackPlugin 은 웹팩이 html 파일을 읽어서 html 파일을 빌드할 수 있게 해준다.
 
 loader 는 html 파일을 읽었을 때 html-loader를 실행하여 웹팩이 이해할 수 있게 하고 options 로는 minimize라는 코드 최적화 옵션을 사용하고 있다.
 
 - 3 ) Build 하기
+
 ```
 npm run-script build
 ```
+
 정상적으로 실행이 되었다면 ./build/index.html 파일이 생성된다
 
+#### path.join vs path.resolve
+
+[차이점](https://programming119.tistory.com/106)
+
+### mongoDB
+
+NoSQL database
+
+- "mongoDB Community Servere" Download
+- 터미널에 mongod 실행
+- 터미널에 mongo 실행
+- mongo와 js를 연결하는 두가지 방법
+  - mongoDB
+  - Node.js
+- mongoDB와 js를 연결할 땐 adapter가 필요. mongoose가 그 역할. 몽구스는 Node.js를 위한 Object Modeling
+- ```bash
+  npm install mongoose //몽구스 설치하면 몽고디비는 따라옴
+  npm install dotenv
+  ```
+- 설치 후
+  import mongoose from "mongoose"로 임폴트 해주고
+  [mongoose.connect()](https://mongoosejs.com/docs/connections.html)
+  mongoose.connect() 메서드를 사용하면 mongoDB 서버와 연결된다
+  mongoDB는 JSON 형식으로 데이터를 저장하지만, mongoose를 사용하여 모델의 형태를 정할 수 있다
+- dotenv는 데이터의 보안을 위한 모듈이다.
+  - .env파일을 만들어준다(파일명은 secret도 상관무)
+  - 그 파일 안에 변수를 만들어준다.(URL,PORT...)
+  - db.js 파일에
+    - ````bash
+      - import dotenv from "dotenv"
+      - dotenv.config
+       - ```
+      ````
+    - dotenv.config함수로 .env파일 안의 정보 가지고 올 수 있다. 찾은 모든 변수들을 process.env.key에 저장.
+- 몽고디비 ,제이슨파일
+- 몽고디비에게 파일이 어떤 식으로 생겨야할지 알려줘야한다.
+- 그게 모델의 형태.
+- 모델은 실제 데이터. 스키마는 형태
+- [schema](https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250)
+  - 이러한 문제를 막기 위해 몽구스는 Schema(스키마)를 도입했습니다. 몽구스는 사용자가 작성한 스키마를 기준으로 데이터를 DB에 넣기 전에 먼저 검사합니다. 스키마에 어긋나는 데이터가 있으면 에러를 발생시킵니다.
+  - [schema의 required](https://stackoverflow.com/questions/39871236/what-is-the-meaning-required-in-mongoose-schema)
+- [schema](https://mongoosejs.com/docs/guide.html) option 보기
+- 스키마 생성 할 떄 옵션이 있다면 object(객체), 아니면 one line
+- 스키마 정의 후 모델로 변환해야한다.
+  - mongoose.model(modelName, schema):
+    ```
+    //ex
+    const Blog = mongoose.model('Blog', blogSchema);
+    ```
+- 모델 변환 후 init.js 파일에 모델 임포트
+- 모델과 모델을 연결하는 법 (https://mongoosejs.com/docs/api.html#types-objectid-js)
+
+  ```bash
+  //ex
+  video : { //객체생성
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Video" //연결할 모델명
+  }
+  ```
+
+  이 과정에서 객체에 들어갈게 배열이라면 [] 추가
+
+- 그 후 database 생성 [과정](https://velopert.com/457)
 
 ### pass port
-쿠키.
+
+쿠키는 브라우저에 저장할 수 있는 것들이다.
+쿠키에는 요청(request)에 대해서 백엔드로 전송될 정보들이 담겨있다.오토매틱.
+예를들어 클라이언트(웹브라우저)에 쿠키가 있을때 서버에 뭔가 요청할 때마다(로그인,가입,홈으로 가기등등 이것들이 요청이다) 브라우저가 자동적으로 그 쿠키들을 서버로 전송해준다.
+이 과정에서 passport는 쿠키를 생성하고 브라우저에 저장시켜주고 유저에게 해당 쿠키를 주는 역할을 한다.
+
 passport 는 인증(authentication) 절차를 로직을 편하게 작업할 수 있게 도와주는 Node.js 미들웨어이다.
 
 npm i passport-local-mongoose
 use model의 기본적인 사용자 인증을 도와줌(만들어줌).
+mongoose,mongoDB와 함께 쓰기 좋은 모듈
 
 - 유저모델 생성 -> passport 선언 -> passport-local 기본설정 -> 사용
 
-유저 모델 생성할때 { usernameField : 'email'} 은 옵션 중 하나로 username으로 email을 보여주겠다는 뜻이다.
+유저 모델 생성할때 passportLocalMongoose plugin을 사용한다.
+{ usernameField : 'email'} 은 옵션 중 하나로 username으로 email을 보여주겠다는 뜻이다.
+
+```
+UserSchema.plugin(passLocalMongoose,{})
+```
+
 문서 [참고](https://github.com/saintedlama/passport-local-mongoose)
 
-npm i passport passport-local
+위의 작업을 했다고 인증까지 되었다는건 아니다.
+사용자 인증을 위한 작업을 해야한다.
+passport.js 파일 생성 후
+
+```
+npm i passport passport-local //설치
+```
+
 passport는 passport
 passport-local은 username과 passport를 쓰는 사용자 인증 방식(strategy)
 
-passport.js 파일 생성하고
+passport.js 파일에
 model(User)와 passport를 import하고
-passport.use(User.createStretagy()) 
+passport.use(User.createStretagy())👉🏽createStrategy()는 이미 구성이 된 passport-local의 localstrategy를 생성한다.
 stretagy => 로그인 하는 방식
 ex.username과 password 이용, github, facebook...등이 있다.
 위의 예시 코드에서는 username과 password 이용하는 방식을 만들었다.(passport-local)
 
-https://www.npmjs.com/package/passport-local-mongoose
+[참고](https://www.npmjs.com/package/passport-local-mongoose)
 Simplified Passport/Passport-Local Configuration
 Starting with version 0.2.1 passport-local-mongoose adds a helper method createStrategy as static method to your schema. The createStrategy is responsible to setup passport-local LocalStrategy with the correct options.
+
+- serialization
+  👉🏽어떤 정보를 쿠키에게 주느냐. 지금 클라이언트(웹브라우저)에 있는 사용자에 개해서 어떤 정보를 가질수 있느냐.
+  어떤 field가 쿠키에 포함될 것인지 알려주는 역할.
+- desetialize
+  👉🏽그 쿠키의 정보를 어떻게 사용자로 전환하는가.
+
 ```
 const User = require('./models/user');
- 
+
 // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
 passport.use(User.createStrategy());
- 
+
 passport.serializeUser(User.serializeUser());  //어떤 필드가 쿠키에 포함될 것인지 알려주는 역할
-passport.deserializeUser(User.deserializeUser());  //어느 사용자인지 어떻게 찾는가. 쿠키 안의 정보를 어떻게 변환하는가. 
+passport.deserializeUser(User.deserializeUser());  //어느 사용자인지 어떻게 찾는가. 쿠키 안의 정보를 어떻게 변환하는가.
 ```
+
 The reason for this functionality is that when using the usernameField option to specify an alternative usernameField name, for example "email" passport-local would still expect your frontend login form to contain an input field with name "username" instead of email. This can be configured for passport-local but this is double the work. So we got this shortcut implemented.
 
+- Model.register (user, password, cb) 지정된 암호로 새 사용자 인스턴스를 등록하는 편리한 방법입니다.
+  model.create 와 model.regidter의 차이점👉🏽We use register when we want to encrypt the password and we use create when we don't really care about password, for example when the user logs in with Github.
 
-##### passport의 middleware
+#### passport의 middleware
+
 ```
 passport.initialize()
 passport.session()
 ```
+
 In a Connect or Express-based application, passport.initialize() middleware is required to initialize Passport. If your application uses persistent login sessions, passport.session() middleware must also be used.
+(Connect 또는 Express 기반 응용 프로그램에서 Passport를 초기화하려면 passport.initialize () 미들웨어가 필요합니다. 응용 프로그램에서 영구 로그인 세션을 사용하는 경우 passport.session () 미들웨어도 사용해야합니다.)
 
-initialize  => passport. initialize() is a middle-ware that initialises Passport. Middlewares are functions that have access to the request object (req), the response object (res), and the next middleware function in the application's request-response cycle.
+initialize => passport. initialize() is a middle-ware that initialises Passport. Middlewares are functions that have access to the request object (req), the response object (res), and the next middleware function in the application's request-response cycle.(passport. initialize()는 Passport를 초기화하는 미들웨어입니다. 미들웨어는 요청 오브젝트 (req), 응답 오브젝트 (res) 및 애플리케이션의 요청-응답주기에서 다음 미들웨어 기능에 액세스 할 수있는 기능입니다.)
 
-session은 사용하려면 express-session을 설치해야한다.
+session은 사용하려면 [express-session](https://www.npmjs.com/package/express-session)을 설치해야한다.
+[참고](https://velopert.com/406)
+
+#### session
+
+1. 세션이란?
+   쿠키는 웹 브라우저에 저장되는 '키-밸류' 타입의 데이터라고 언급했습니다. 따라서 누구나 키에 따른 밸류를 확인할 수 있으므로 비밀정보를 쿠키로 보낸다면 비밀 정보를 아주 쉽게 탈취당할 수 있습니다.
+   세션은 이러한 문제점을 고려해서, 쿠키를 업그레이드 한 것이라 보면 됩니다. 쿠키와 달리 서버에 데이터를 저장하고 웹 브라우저는 Session ID만을 가지고 있기 때문에 비교적 안전합니다.
+
+세션의 동작을 요약하면 다음과 같습니다.
+
+1. 서버는 웹 브라우저에게 세션 값을 보내줍니다. (sid 라고 하며, 아무런 의미도 없는 단순 식별자입니다.)
+
+2. 클라이언트는 접속할 때 자신이 가지고 있는 sid를 서버에게 전달합니다.
+
+3. 서버는 클라이언트가 보내준 sid를 가지고, 해당 유저를 식별합니다.
+
+session에서 secret 옵션은 .env에 변수로 넣어주는게 좋다. 보안을 위한 옵션이니까.
+
+- [session을 사용하는 이유](https://www.it-swarm.dev/ko/node.js/passportsession-%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%84%ED%95%A9%EB%8B%88%EA%B9%8C/1045245130/)
+
+app.js 파일에서
+
+```
+app.use(
+  session({
+    //session은 쿠키를 해독함
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CokieStore({ mongooseConnection: mongoose.connection }), //이 쿠키저장소에 저장하겠다.이 코드가 몽구스가 저장소를 몽고디비와 연결해준다.
+  })
+);
+app.use(passport.initialize()); //cookieparser 후 routes 전에 위치,passport.initialize() returns the middleware that is going to check for the cookies and find the user and all that.
+app.use(passport.session()); // 해독한 쿠키가 passport로 넘어가고 deserializeUser함수 실행해서 사용자 식별
+//그 후엔 아래 미들웨어와 라우트 요청에 할당.
+```
+
+코드 입력을 해야한다.
+맨 윗줄은 express-session을 사용하는 코드
+[connect-mongo](https://www.npmjs.com/package/connect-mongo)를 써서 session에게 데이터를 mongostore에 저장하게
+mongoDB의 세션스토어에 express와 mongoose connection으로 연결되어 있을 때, 서버를 재시작하면 연결이 끊어진다. 이럴 때 connect-mongo를 사용하면 연결을 유지할 수 있다. https://velog.io/@ground4ekd/nodejs-mongodb
+새로운 저장소에 세션을 저장.
+
+마지막 passport.session()은 req 객체를 변경하고 현재 클라이언트 아이디에서 세션 아이디 인 'user'값을 deserialized 된 실제 사용자 객체로 변경하는 미들웨어 역할을합니다.
+
+즉, express-session으로 쿠키가 express에 보내지고
+session을 이용함으로서 쿠키를 이용할 수 있다.
+그리고 passport를 통해서 세션을 이용하는데(즉, 세션이 가진 쿠키를 이용)그 패스포트로 deserialize를 진행하는 것.
+
+connect-mongo를 설치하고 용하면
+세션에게 데이터를 저장소에 저장하라고 알려줄 수 있다.
+app.js폴더에
+
+1. import MongoStore from "connect-mongo", 몽구스 임포트
+2. const cookieStore = MongoStore(session); 변수저장
+3. app.use(session{}) 안에 store : new CookieStore({mongooseConnection:mongoose.connection}) 키:밸류 저장
