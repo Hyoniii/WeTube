@@ -514,7 +514,10 @@ NoSQL database
 
 - 그 후 database 생성 [과정](https://velopert.com/457)
 
-### pass port
+mongoose와 passport의 연결.
+그 흐름. mongoStore와 session.
+
+### passport
 
 쿠키는 브라우저에 저장할 수 있는 것들이다.
 쿠키에는 요청(request)에 대해서 백엔드로 전송될 정보들이 담겨있다.오토매틱.
@@ -562,7 +565,7 @@ Starting with version 0.2.1 passport-local-mongoose adds a helper method createS
 
 - serialization
   👉🏽어떤 정보를 쿠키에게 주느냐. 지금 클라이언트(웹브라우저)에 있는 사용자에 개해서 어떤 정보를 가질수 있느냐.
-  어떤 field가 쿠키에 포함될 것인지 알려주는 역할.
+  어떤 field가 쿠키에 포함될 것인지 알려주는 역할. req.session 객체에 무엇을 저장할 것인지를 선택합니다. 세션에 모든 정보를 저장하는 것은 세션의 용량을 너무 크게 만드므로 대개 user의 id만을 저장합니다. deserialize는 serialize를 통해 받은 유저의 id를 이용해 이용자를 식별하는 것이다. 조회한 정보는 req.user 객체에 저장됩니다. 로그인 후에 다시 웹페이지에 접속했을 때 해당 이용자가 어떤 이용자인지 식별해내는 역할을 한다.
 - desetialize
   👉🏽그 쿠키의 정보를 어떻게 사용자로 전환하는가.
 
@@ -595,6 +598,7 @@ initialize => passport. initialize() is a middle-ware that initialises Passport.
 
 session은 사용하려면 [express-session](https://www.npmjs.com/package/express-session)을 설치해야한다.
 [참고](https://velopert.com/406)
+[참고1](https://darrengwon.tistory.com/186)
 
 #### session
 
@@ -635,7 +639,7 @@ app.use(passport.session()); // 해독한 쿠키가 passport로 넘어가고 des
 맨 윗줄은 express-session을 사용하는 코드
 [connect-mongo](https://www.npmjs.com/package/connect-mongo)를 써서 session에게 데이터를 mongostore에 저장하게
 mongoDB의 세션스토어에 express와 mongoose connection으로 연결되어 있을 때, 서버를 재시작하면 연결이 끊어진다. 이럴 때 connect-mongo를 사용하면 연결을 유지할 수 있다. https://velog.io/@ground4ekd/nodejs-mongodb
-새로운 저장소에 세션을 저장.
+새로운 저장소에 세션을 저장.[참고](https://darrengwon.tistory.com/189)
 
 마지막 passport.session()은 req 객체를 변경하고 현재 클라이언트 아이디에서 세션 아이디 인 'user'값을 deserialized 된 실제 사용자 객체로 변경하는 미들웨어 역할을합니다.
 
@@ -650,3 +654,5 @@ app.js폴더에
 1. import MongoStore from "connect-mongo", 몽구스 임포트
 2. const cookieStore = MongoStore(session); 변수저장
 3. app.use(session{}) 안에 store : new CookieStore({mongooseConnection:mongoose.connection}) 키:밸류 저장
+
+[참고](https://darrengwon.tistory.com/189)

@@ -39,7 +39,7 @@ app.use(
   })
 );
 app.use(passport.initialize()); //cookieparser 후 routes 전에 위치,passport.initialize() returns the middleware that is going to check for the cookies and find the user and all that.
-app.use(passport.session()); // 해독한 쿠키가 passport로 넘어가고 deserializeUser함수 실행해서 사용자 식별
+app.use(passport.session()); // 해독한 쿠키가 passport로 넘어가고 deserializeUser함수 실행해서 사용자 식별, passport.js에서 그래서 deserialize함수로 해독.
 //그 후엔 아래 미들웨어와 라우트 요청에 할당.
 
 app.use(localsMiddlewares); //middleware는 웹사이트의 링크 혹은 라우터의 값을 뷰에 띄워주는 용도

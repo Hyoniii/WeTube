@@ -33,4 +33,4 @@ passport.use(
 );
 
 passport.serializeUser(User.serializeUser()); //passport에게 쿠키에 user.id만 담아서 보내라.
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser()); //해독해서 넘김
