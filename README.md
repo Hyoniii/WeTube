@@ -656,3 +656,14 @@ app.js폴더에
 3. app.use(session{}) 안에 store : new CookieStore({mongooseConnection:mongoose.connection}) 키:밸류 저장
 
 [참고](https://darrengwon.tistory.com/189)
+
+### AJAX
+ajax에서의 api는 데이터베이스만 변경한다.렌더링도 없다.
+데이터베이스로 다른 서비스와 통신하기 위해 만들어짐
+
+```
+npm i axios
+```
+axios는 리퀘스트를 도와줌?fetch()와 같은 역할.
+
+데이터베이스를 변경해야 하면 postRequest
