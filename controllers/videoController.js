@@ -39,6 +39,7 @@ export const postUpload = async (req, res) => {
     body: { title, description },
     file: { path }, // 파일 자체가 아닌 파일의 location을 저장.아주 중요★.multer(미들웨어)를 거친후 path에 ulr경로가 생김
   } = req;
+  console.log(req.file);
   const newVideo = await Video.create({
     fileUrl: path,
     title,
@@ -105,9 +106,8 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    console.log(video.creator);
-    console.log(user.id);
-    if (video.creator !== user.id) {
+
+    if (video.creator != user.id) {
       throw Error();
     } else {
       await Video.findByIdAndRemove({ _id: id });
