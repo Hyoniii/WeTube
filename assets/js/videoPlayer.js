@@ -1,3 +1,5 @@
+import getBlobDuration from "get-blob-duration";
+
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
@@ -75,8 +77,12 @@ function getCurrentTime() {
   currentTime.innerHTML = formatDate(videoPlayer.currentTime); //현재 재생 시간을 초 단위로 나타내는
 }
 
-function setTotalTime() {
-  const totalTimeString = formatDate(videoPlayer.duration); //duration초 단위 요소의 미디어의 길이
+/* function setTotalTime() {
+  const totalTimeString = formatDate(videoPlayer.duration); //duration초 단위 요소의 미디어의 길이 */
+async function setTotalTime() {
+  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
+  const duration = await getBlobDuration(blob);
+  const totalTimeString = formatDate(duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000); //1초마다 함수발생
 }
