@@ -1,7 +1,15 @@
 // golbal routes
 import routes from "../routes";
+import aws from "aws-sdk";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import User from "../models/User";
+
+const s3 = new aws.S3({
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  accessKeyId: process.env.AWS_KEY,
+  region: "ap-northeast-2",
+});
 
 export const home = async (req, res) => {
   try {
@@ -37,11 +45,11 @@ export const getUpload = (_req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }, // 파일 자체가 아닌 파일의 location을 저장.아주 중요★.multer(미들웨어)를 거친후 path에 ulr경로가 생김
+    file: { location }, // 파일 자체가 아닌 파일의 location을 저장.아주 중요★.multer(미들웨어)를 거친후 path에 ulr경로가 생김,후에는 multer.S3로 location으로 변경
   } = req;
   console.log(req.file);
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id,
@@ -105,12 +113,32 @@ export const deleteVideo = async (req, res) => {
     user,
   } = req;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
+    const creator = await User.findById(video.creator);
 
-    if (video.creator != user.id) {
+    if (video.creator._id != user.id) {
       throw Error();
     } else {
+      //for S3
+      const urlArray = video.fileUrl.split("/");
+      const delFileName = urlArray[urlArray.length - 1];
+      const params = {
+        Bucket: "hyoniiitube/video",
+        Key: delFileName,
+      };
+      s3.deleteObject(params, (err, data) => {
+        if (err) {
+          console.log("video delete error!");
+          console.log(err, err.stack);
+        } else {
+          console.log("video delete sucess");
+          console.log(data);
+        }
+      });
       await Video.findByIdAndRemove({ _id: id });
+      await creator.videos.remove(video.id);
+      console.log(creator);
+      await creator.save();
     }
   } catch (error) {
     console.log(error);

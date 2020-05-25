@@ -151,7 +151,7 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl, //file이 있으면  file.path 없으면
+      avatarUrl: file ? file.location : req.user.avatarUrl, //file이 있으면  file.path 없으면 ,후에 multer.S3로 인해 location으로 변경
     }); //바뀐걸로 업로드
     res.redirect(routes.me);
   } catch (error) {
