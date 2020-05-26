@@ -658,12 +658,16 @@ app.js폴더에
 [참고](https://darrengwon.tistory.com/189)
 
 ### AJAX
+
 ajax에서의 api는 데이터베이스만 변경한다.렌더링도 없다.
 데이터베이스로 다른 서비스와 통신하기 위해 만들어짐
 
 ```
 npm i axios
 ```
+
 axios는 리퀘스트를 도와줌?fetch()와 같은 역할.
 
 데이터베이스를 변경해야 하면 postRequest
+
+babel이 하는 일은 보통 자바스크립트 파일을 컴파일 해줌. css에는 영향X

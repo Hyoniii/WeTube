@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
+import path from "path";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
@@ -22,8 +23,10 @@ const CokieStore = MongoStore(session); //이 함수는 session object를 필요
 
 app.use(helmet()); //보안을 위한 middleware
 app.set("view engine", "pug"); //view engine을 undefined(default값)에서 pug로 지정해주는 코드.
-app.use("/uploads", express.static("uploads")); //uploads 디렉토리에 들어있는 파일을 로드할 수 있다.
-app.use("/static", express.static("static")); //uploads 디렉토리에 들어있는 파일을 로드할 수 있다.
+//app.use("/uploads", express.static("uploads")); //uploads 디렉토리에 들어있는 파일을 로드할 수 있다.
+//app.use("/static", express.static("static")); //uploads 디렉토리에 들어있는 파일을 로드할 수 있다.
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
