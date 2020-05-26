@@ -24,10 +24,11 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      color: white;
       font-weight: bold;
       font-size: 18px;
-
+      a {
+        color: white;
+      }
       li:not(:last-child) {
         margin-right: 14px;
       }
