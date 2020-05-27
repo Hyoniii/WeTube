@@ -74,18 +74,31 @@ const formatDate = (seconds) => {
 };
 
 function getCurrentTime() {
-  currentTime.innerHTML = formatDate(videoPlayer.currentTime); //현재 재생 시간을 초 단위로 나타내는
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime)); //현재 재생 시간을 초 단위로 나타내는
 }
 
 /* function setTotalTime() {
   const totalTimeString = formatDate(videoPlayer.duration); //duration초 단위 요소의 미디어의 길이 */
 async function setTotalTime() {
+  let duration;
+  if (!isFinite(videoPlayer.duration)) {
+    const blob = await fetch(videoPlayer.src).then((response) =>
+      response.blob()
+    );
+    duration = await getBlobDuration(blob);
+  } else {
+    duration = videoPlayer.duration;
+  }
+  const totalTimeString = formatDate(duration);
+  totalTime.innerHTML = totalTimeString;
+  setInterval(getCurrentTime, 1000);
+} /* {
   const blob = await fetch(videoPlayer.src).then((response) => response.blob());
   const duration = await getBlobDuration(blob);
   const totalTimeString = formatDate(duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000); //1초마다 함수발생
-}
+} */
 function handleEnded() {
   registerView();
   videoPlayer.currentTime = 0;
@@ -110,7 +123,7 @@ function init() {
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScrnBtn.addEventListener("click", goFullScreen);
-  videoPlayer.oncanplay = setTotalTime();
+  videoPlayer.addEventListener("loadedmetadata", setTotalTime());
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);
 }
