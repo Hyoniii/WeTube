@@ -15,9 +15,9 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: process.env.PRODUCTION
-        ? `https://safe-tundra-06020.herokuapp.com${routes.githubCallback}`
-        : `http://localhost:4000${routes.githubCallback}`,
+      //process.env.PRODUCTION
+      callbackURL: `https://safe-tundra-06020.herokuapp.com${routes.githubCallback}`,
+      //: `http://localhost:4000${routes.githubCallback}`,
     },
     githubLoginCallback
   )
@@ -28,7 +28,9 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET, // clientSecret을 사용하지 않는다면 넘기지 말거나 빈 스트링을 넘길 것
-      callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
+      //process.env.PRODUCTION
+      callbackURL: `https://safe-tundra-06020.herokuapp.com${routes.kakaoCallback}`,
+      //: `http://localhost:4000${routes.kakaoCallback}`,
     },
     kakaoLoginCallback
   )
