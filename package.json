@@ -41,7 +41,7 @@
     "pug": "^2.0.4",
     "sass-loader": "^8.0.2",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js --delay 2",
